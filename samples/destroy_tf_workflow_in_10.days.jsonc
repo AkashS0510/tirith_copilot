@@ -1,0 +1,67 @@
+{
+  "ResourceName": "aws-s3-demo-website-Ygnl",
+  "Description": "",
+  "Tags": [],
+  "VCSConfig": {
+    "iacVCSConfig": {
+      "useMarketplaceTemplate": true,
+      "iacTemplateId": "/demo-org/aws-s3-demo-website:1"
+    },
+    "iacInputData": {
+      "data": { "bucket_region": "eu-central-1" },
+      "schemaType": "FORM_JSONSCHEMA"
+    }
+  },
+  "WfType": "TERRAFORM",
+  "RunnerConstraints": { "type": "shared" },
+  "UserSchedules": [
+    {
+      "desc": "",
+      "state": "ENABLED",
+      // TODO: Need to compare against this
+      "cron": "0 2 * * ? *",
+      "inputs": {
+        "WfType": "TERRAFORM",
+        "TerraformAction": { "action": "destroy" },
+        "VCSConfig": {
+          "iacVCSConfig": {
+            "useMarketplaceTemplate": true,
+            "iacTemplateId": "/demo-org/aws-s3-demo-website:1",
+            "iacTemplate": "/demo-org/aws-s3-demo-website"
+          },
+          "iacInputData": {
+            "data": { "bucket_region": "eu-central-1" },
+            "schemaType": "RAW_JSON"
+          }
+        }
+      },
+      "name": ""
+    }
+  ],
+  "MiniSteps": {
+    "wfChaining": { "ERRORED": [], "COMPLETED": [] },
+    "webhooks": { "ERRORED": [], "COMPLETED": [], "DRIFT_DETECTED": [] },
+    "notifications": {
+      "email": {
+        "ERRORED": [],
+        "COMPLETED": [],
+        "APPROVAL_REQUIRED": [],
+        "CANCELLED": []
+      }
+    }
+  },
+  "Approvers": [],
+  "EnvironmentVariables": [],
+  "DeploymentPlatformConfig": [],
+  "NumberOfApprovalsRequired": 0,
+  "TerraformConfig": {
+    "managedTerraformState": true,
+    "terraformVersion": "1.5.7",
+    "driftCheck": true,
+    "prePlanWfStepsConfig": [],
+    "postApplyWfStepsConfig": [],
+    "preApplyWfStepsConfig": []
+  }
+}
+
+// We need to have a cron comparison ConditionType, e.g. `CronHappensAt`

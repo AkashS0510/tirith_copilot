@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "required_provider": "stackguardian/terraform_plan",
+    "version": "v1"
+  },
+  "evaluators": [
+    {
+      "id": "destroy_ec2",
+      "provider_args": {
+        "operation_type": "action",
+        "terraform_resource_type": "aws_instance"
+      },
+      "condition": {
+        "type": "NotEquals",
+        "value": "destroy"
+      }
+    }
+  ],
+  "eval_expression": "destroy_ec2"
+}
